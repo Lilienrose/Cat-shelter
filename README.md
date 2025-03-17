@@ -1,4 +1,5 @@
 Just a little silly simple cat shelter django, html, css projct. :) 
+
 Shelter is completely fictional.
 
 A homepage with sliding menu and link to cat list and details

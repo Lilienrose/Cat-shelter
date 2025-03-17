@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <style>
+   body {
+    font-family: Arial, sans-serif;
+    background-color: gray; /* Set background color for the body */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px; 
+    margin: auto; 
+    background-color: azure; 
+    
+}
+
+/* Ensure the content width does not exceed the container */
+.content {
+    width: 100%;
+    overflow: hidden;
+}
+
+   p {
+    font-size: 21px;
+   }
+
+   img {
+    border-radius: 10px;
+    border-color: rgb(54, 51, 51);
+    width: 400px;
+    display: block;
+    margin: auto;
+   }
+
+   .edit {
+    text-align: center;
+    background-color: rgba(36, 32, 32, 0.1);
+    margin: auto;
+    width: 620px;
+    padding: 20px;
+   }
+
+   .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin:auto;
+   }
+
+   .modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+   }
+
+   .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+   }
+
+   .close:hover,
+   .close:focus {
+    color: rgb(41, 39, 39);
+    text-decoration: none;
+    cursor: pointer;
+   }
+
+   .modal input[type="text"],
+   .modal textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #383535;
+    box-sizing: border-box;
+   }
+
+   .modal button {
+    background-color: #904caf;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+   }
+
+   .modal button:hover {
+    background-color: #5345a0;
+   }
+
+   button {
+    background-color: rgba(59, 56, 52, 0.493);
+    color: rgb(241, 235, 235);
+    border: 1px solid #c2bfbf;
+    border-radius: 3px;
+    height: 35px;
+    font-size: 20px;
+    display: block;
+    margin: auto;
+    transition: background-color 0.3s, transform 0.3s;
+   }
+   button:hover {
+            background-color: rgb(241, 239, 239);
+            border-color: #413f3f;
+            color:#2c2b2b;
+            border-radius: 3px;
+            box-shadow: 0 5px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
+        }
+  </style>
+</head>
+<body> 
+  <div class="container">
+{% block content %}
+  <h1>Name: {{ cat.cat_name }}</h1>
+  <p><strong>Description: </strong> {{ cat.description }}</p>
+  <img src="{{ cat.image.url }}" alt="{{ cat.cat_name }}">
+<br>
+  <div class="edit">
+    <p><strong>Breed: </strong> {{ cat.breed }}</p>
+    <p><strong>Age: </strong> {{ cat.age }}</p>
+    <p><strong>Sex: </strong> {{ cat.sex }}</p>
+    <p><strong>In shelter since: </strong> {{ cat.add_date }}</p>
+    <p><strong>Neutered: </strong> {{ cat.neutered }}</p>
+    <p><strong>Dewormed: </strong> {{ cat.deworming }}</p>
+    <p><strong>Vaccinated: </strong> {{ cat.vaccination }}</p>
+    <p><strong>Adoption status: </strong> {{ cat.adopt_status }}</p>
+    <p><strong>Id: </strong> {{ cat.id }}</p>
+  </div>
+  <br>
+  <button style ="margin:auto" id="contactBtn">I am interested!</button>
+  <!-- Modal, that will set up the email -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Contact Us</h2>
+      <form>
+        <input type="text" id="senderEmail" value="cats.shelter@email.cz" readonly>
+        <input type="text" id="emailSubject" placeholder="Subject">
+        <textarea id="emailMessage" placeholder="Message" rows="4"></textarea>
+        <button type="button" onclick="sendEmail()">Send</button>
+      </form>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    // Get the modal
+    var modal = document.getElementById("contactModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("contactBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    function sendEmail() {
+      var subject = document.getElementById("emailSubject").value;
+      var message = document.getElementById("emailMessage").value;
+      var mailtoLink = "mailto:cats.shelter@email.cz?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(message);
+      window.location.href = mailtoLink;
+    }
+  </script>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,401 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding Menu Example</title>
+    <style>
+        body, ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body {
+    font-family: Arial, sans-serif;
+    background-color: gray; /* Set background color for the body */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px; 
+    margin: auto; 
+    background-color: azure; 
+    
+}
+
+/* Ensure the content width does not exceed the container */
+.content {
+    width: 100%;
+    overflow: hidden;
+}
+        /* Style the menu */
+        .menu {
+            display: flex;
+            background-color: #333;
+            padding: 10px;
+            
+        }
+
+        .menu li {
+            margin-right: 20px;
+            
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.8s, transform 0.5s;
+            border-radius: 2px;
+        }
+
+        .menu a:hover {
+            background-color: rgb(241, 239, 239);
+            border-color: #413f3f;
+        }
+
+        /* Style the content sections */
+        .content {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .section {
+            display: none;
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: transform 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .text_background {
+            margin-top: -10px;
+            height: 400px;
+            background-image: url("/static/css/cats.jpg");
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        a {
+            font-size: 20px;
+            margin: auto;
+            color: black;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            box-shadow: 0 8px 6px rgba(0, 0, 0, 0.1);
+            
+        }
+
+        a:hover {
+            color: rgb(38,41,43);
+            border-color:#413f3f;
+            background-color:rgba(223, 224, 226, 0.966);
+        }
+
+        .a1 {
+            font-size: 20px;
+            background-color: rgb(148, 141, 141);
+            margin: auto;
+            color: black;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            box-shadow: 0 8px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .a1 a:hover {
+            color: rgb(38, 41, 43);
+            
+        }
+
+        .button {
+            display: inline-block;
+            background-color: rgba(59, 56, 52, 0.493);
+            color: rgb(241, 235, 235);
+            border: 1px solid #c2bfbf;
+            border-radius: 2px;
+            box-shadow: 0 5px 6px rgba(0, 0, 0, 0.1);
+            height: 48px;
+            width: 170px;
+            line-height: 40px; 
+            text-align: center; 
+            text-decoration: none; 
+            font-size: 28px;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            cursor: pointer; 
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: rgb(241, 239, 239);
+            border-color: #413f3f;
+            color: black;
+            border-radius: 3px;
+            box-shadow: 0 5px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+.welcome {
+            color: rgb(206, 199, 199);
+            width: 50%;
+            margin-top: 10px;
+            height: 30px;
+            padding: 90px 10px 10px 10px;
+            font-size: 30px;
+            
+        }
+
+img {
+     width: 550px;
+     height: 350px;
+        }
+
+.services {
+            text-align: center;
+        }
+
+.contact-info {
+    justify-content: right;
+    gap: 4rem;
+    font-size: 1rem;
+
+}
+.contact-item {
+    align-items: center; 
+    gap: 0.5rem; 
+    width: 20px;
+    height: 20px;
+}
+.icon {
+    border: 1px solid rgb(133, 127, 127);
+    width: 38px;
+    height: 36px;
+    margin-right: 0.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.icon:hover {
+    transform: scale(1.2);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.social-icon {
+    display: inline-block;
+    margin: 10px;
+}
+
+.homepage {
+    display: flex;
+    justify-content: space-between; /* Distribute space between the blocks */
+    flex-wrap: nowrap; /* Ensure that blocks do not wrap to a new line */
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 960px; /* Set a fixed maximum width for the container */
+    margin-left: 0; /* Move the container to the left */
+}
+.homepage-block {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 0 0 calc((100% - 40px) / 3); 
+    height: 200px; 
+    overflow: hidden; 
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+    <nav>
+        <ul class="menu">
+            <li><a href="#home" class="a1" onclick="showSection('home')">Home</a></li>
+            <li><a href="#about"class="a1" onclick="showSection('about')">About</a></li>
+            <li><a href="#cats" class="a1"onclick="showSection('services')">Services</a></li>
+            <li><a href="#visit" class="a1"onclick="showSection('visit')">Visit days</a></li>
+            <li><a href="#contact" class="a1"onclick="showSection('contact')">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="text_background">
+    <p class="welcome"> Our puprose is saving lives.</p>
+    </div>
+    <div class="content">
+        <section id="home" class="section">
+            <h1>Home page</h1>
+                
+                    
+                    <p>Welcome. We are a little cat shelter organization. Just a bunch of people who really love cats and want to help them to get a high-quality life and find them a loving family.</p>
+                    <p><a class="button" href="{% url 'cat_list' %}">Our cats</a></p>
+                    <h2>How you can help?</h2>
+                    <p>Even if you can't adopt yourself, you can still help us.</p>
+                    <div class="homepage">
+                <div class="homepage-block">
+                    <h2>Financial gifts</h2>
+                    <p>Any of your financial gifts can help.</p>
+                    <p>Transparent account:</p>
+                    <p>71300894245/0600</p>
+                </div>
+                <div class="homepage-block">
+                    <h2>Material help</h2>
+                    <p>Cat food</p>
+                    <p>Toys, cat beds, scratchers, cat litters etc.</p>
+                </div>
+                <div class="homepage-block">
+                    <h2>Temporary care</h2>
+                    <p>If you are willing to take temporary care of cats, contact us!</p>
+                </div>
+            </div>
+
+                </div>
+
+
+
+        </section>
+        <section id="about" class="section">
+            <h1>About</h1>
+            <p>
+                We are a non-profit organization that rescues cats in need. We believe that every animal deserves a dignified life and a loving home. 
+
+                Our shelter was founded on April 12, 2010.
+                </p>
+
+                <p> We are a team or responsible people who really
+                    loves animals and would do anything to make sure they are safe.
+                </p>
+                <p> Our cats are living in a clean, big house with garden with
+                    big voliere, so the cats can go outside without vandering 
+                    and risking an accident.
+                </p>
+                <p> We are supported by our city, and free will sponsorships
+                    and gifts. 
+                </p>
+                <h2> Place of our shelter </h2>
+               <p> New Wheels city </p>
+               <p> Starwest 354 </p>
+              <p> 461 01</p>
+              <h1> Our team </h1>
+              <h2> Eva Spring - owner </h2>
+              <p> Eva is an owner and founder in our shelter.
+                She always fought against animal cruelty and 
+                even becomed an vegan activist. She also owns five cars herself 
+                 and loved them since childhood. In the year 2010 she decided 
+                to invent her own cat shelter.  </p>
+                <img src="\static\css\Eva.jpg" alt="Ash">
+              <h2> Emma Field </h2>
+              <p> Emma is a wise student who invest a good amount of her free time
+                to care about cats. She cooperates with us since year 2015.
+                 Her main work in our team is providing a vet care and neuterization
+                of wild cats. She also partipicates in cat capturing. </p>
+              <img src="\static\css\Emma.jpg" alt="Emma">
+              <h2> Ashley Jyn </h2>
+              <p> Ashley is a young graphic desinger and web developer
+                  She does graphic work and web maintaining for
+                  us.
+              </p>
+              <img src="\static\css\Ashley.jpg" alt="Ash">
+              <h2> Thomas Johan </h2>
+              <p> Thomas is a young nurse, who also cares about 
+                cats with us in his free time. 
+                He loved animals since very young age and he helped
+                in many other shelters in past. 
+                His puropose in our shelter is general care about cats and 
+                entertaiment of visiters.
+              </p>
+              <img src="\static\css\Thomas.jpg" alt="Ash">
+
+        </section>
+        <section id="services" class="section">
+            <div class="services">
+            <h1>Services</h1>
+            <h2> Adoption and shelter </h2>
+            <p> We provide shelter for abanoned cats and adoption system to find new families for cat's.</p>
+            <img src="\static\css\adoption.jpg" alt="adoption">
+            <h2>Temporary care </h2>
+            <p> We have team of people providing temporary care 
+                for cat's that need it. 
+            </p>
+            <img src="\static\css\temporary.jpg" alt="tempcare">
+            <h2> Cat capture </h2>
+            <p> If an abanoned cat or can in danger is found
+                we should provide capture service.
+            </p>
+            <img src="\static\css\capture.jpg" alt="capture">
+            <h2> Health care </h2>
+            <p> We provide health care for cat's in danger and
+                sheltered cats.  </p>
+                <p>We also provide neuterization 
+                and vaccination for wild cats in cooperation with our city. </p>
+            
+            <img src="\static\css\vet.jpg" alt="vet">
+            </div>
+
+        </section>
+        <section id="contact" class="section">
+            <h1>Contact</h1>
+            <p>Get in touch with us:</p>
+            <div class="contact-info">
+                <span class="contact-item">
+                    <img src="\static\css\phone.png" alt="Phone Icon" class="icon">
+                    <a href="tel:+736777821">+420 736 777 821</a>
+                </span>
+                <br>
+                <br>
+                <br>
+                <span class="contact-item">
+                    <img src="\static\css\email.png"  alt="Email Icon" class="icon">
+                    <a href="mailto:Productiv@email.com">Catshelter@email.com</a>
+                </span>
+            </div>
+            <p> Social sites: </p>
+<a href="https://www.facebook.com/" class="social-icon"><img src="\static\css\fb.png" alt="fb" class="icon"></a>
+<a href="https://www.instagram.com" class="social-icon"><img src="\static\css\ig.png" alt="ig" class="icon"></a>
+<a href="https://x.com/?lang=cs" class="social-icon"><img src="\static\css\x.png" alt="x" class="icon"></a>
+        </section>
+        <section id="visit" class="section">
+            <h1> Visit days in shelter </h1>
+            <p> Monday: 13:00-15:00</p>
+            <p> Friday: 15:00-17:00 </p>
+            <p> Sunday: 10:00-15:00 </p>
+
+            <h1> Operation time of the shelter</h1> 
+            <p> Monday-Friday: 8:00-18:00 </p>
+            <p> Weekend: 9:00-16:00</p>
+
+        </section>
+    </div>
+</div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show the selected section
+            const activeSection = document.getElementById(sectionId);
+            activeSection.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        {% block title %}
+        <title> Cat shelter </title>
+        <meta charseet="utf-8" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+
+   {% load static %}
+   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+
+<body>
+    <ul>
+    <li><a href="{% url 'index' %}">Home</a></li>
+    <li><a href="{% url 'cat_list' %}">All cats </a></li>
+    </ul>
+
+    {% endblock %}
+</body>
+</html>

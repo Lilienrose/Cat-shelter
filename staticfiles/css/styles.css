@@ -1,0 +1,17 @@
+body {
+    background-color:azure;
+}
+
+h1 {
+  font-size:25;
+}
+
+p {
+    font-size:20;
+}
+
+img {
+    display: block;
+    margin:auto;
+    width: 50%;
+}

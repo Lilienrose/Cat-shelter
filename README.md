@@ -1,2 +1,4 @@
 # Cat-shelter
-My little silly cat shelter project
+My fictional cat shelter. 
+
+
